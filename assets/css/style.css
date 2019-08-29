@@ -1,0 +1,49 @@
+body{
+    margin: 10px;
+    background-image: url("../imgs/pokeArena.png");
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    font-family: PokeFont !important;
+}
+p{
+    margin: 0 !important;
+}
+#gameLogo{
+    color: white;
+    text-align: center;
+    
+}
+.characterDiv{
+    margin-top: 10px;
+    height: auto;
+    margin-bottom: 10px;
+}
+.character{
+    padding: 10px;
+    margin: 10px;
+}
+.characterRow{
+    display: inline-block;
+}
+.center{
+    text-align: center;
+    display: inline-block;
+    background-color: white
+}
+@font-face {
+    font-family: PokeFont;
+    src: url(../css/PokemonClassic.ttf);
+}
+img {
+    border: 1px solid #ddd; /* Gray border */
+    border-radius: 4px;  /* Rounded border */
+    padding: 5px; /* Some padding */
+    width: 150px; /* Set a small width */
+    height: 200px;
+  }
+  
+  /* Add a hover effect (blue shadow) */
+img:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}
+
