@@ -17,22 +17,53 @@ for (let i = 0; i < charArray.length; i++){
 $(".character").on("click", function(){
     //alert("Hello World");
     //alert($(this).attr('value'));
-    for (let i = 0; i < 4; i++){
+    $("#mainCharacterRowID").empty();
+    for (var i = 0; i < 4; i++){
         if ($(this).attr('value') == i){
             //$(this).appendTo("#mainCharacterRowID");
-            $("#mainCharacterRowID").empty();
-
             $("#mainCharacterRowID").append(charArray[i].createElement());
             console.log("main character - " + JSON.stringify(charArray[i]));
         } else {
             //$('div[value]').appendTo("#enemiesCharacterRowID");
             $("#enemiesCharacterRowID").append(charArray[i].createElement());
+            $('#'+charArray[i].name).addClass('characterEnemy');
+            $('#'+charArray[i].name).removeClass('center');
             console.log("other character - " + JSON.stringify(charArray[i]));
         }
     }
-    //alert($(".characterRowID").val());
-    //$("#Misty").appendTo("#mainEnemies");
 });
+
+$("body").on("click","div.characterEnemy", function(){
+    /*$("#enemiesCharacterRowID").empty();
+    for (var i = 0; i < 4; i++){
+        if ($(this).attr('value') == i){
+            //$(this).appendTo("#mainCharacterRowID");
+            $("#defenderCharacterRowID").append(charArray[i].createElement());
+            $('#'+charArray[i].name).addClass('characterDefender');
+            $('#'+charArray[i].name).removeClass('center');
+            console.log("defender character - " + JSON.stringify(charArray[i]));
+        } else {
+            if ($('#mainCharacterRowID > div.character').val() == i){
+                alert("made it"+ i);
+            } else {
+            //$('div[value]').appendTo("#enemiesCharacterRowID");
+            $("#enemiesCharacterRowID").append(charArray[i].createElement());
+            $('#'+charArray[i].name).addClass('characterEnemy');
+            $('#'+charArray[i].name).removeClass('center');
+            console.log("2nd other character - " + JSON.stringify(charArray[i]));
+            }
+        }
+    }*/
+    var defender = this;
+    var defenderId = $(this).attr('id');
+    console.log(defender);
+    //defender.addClass("d-none");
+    $(this.target).remove();
+    $('#defenderCharacterRowID').append(defender);
+    $('#'+defenderId).removeClass('characterEnemy');
+    $('#'+defenderId).addClass('characterDefender');
+});
+
 
 function Character(name,hP,aP,cAP,valueAtt,imgSrc) {
     this.name = name;

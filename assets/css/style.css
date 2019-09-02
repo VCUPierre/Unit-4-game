@@ -22,6 +22,17 @@ p{
     padding: 10px;
     margin: 10px;
 }
+.characterEnemy{
+    text-align: center;
+    display: inline-block;
+    background-color: red;
+}
+.characterDefender{
+    text-align: center;
+    display: inline-block;
+    background-color: black;
+    color: red;
+}
 .characterRow{
     display: inline-block;
 }
