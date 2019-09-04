@@ -8,6 +8,8 @@ var brockChar = new Character("Brock",100,10,12,2,"assets/imgs/brock.jpg");
 var garyChar = new Character("Gary",180,8,14,3,"assets/imgs/Gary_Oak.png");
 
 var charArray = [ashChar,mistyChar,brockChar,garyChar];
+var mainCharBattles = [];
+var defeatedChar = [];
 
 for (let i = 0; i < charArray.length; i++){
     //let characterVal = 
@@ -31,6 +33,7 @@ $(".character").on("click", function(){
             console.log("other character - " + JSON.stringify(charArray[i]));
         }
     }
+    
 });
 
 $("body").on("click","div.characterEnemy", function(){
@@ -64,6 +67,49 @@ $("body").on("click","div.characterEnemy", function(){
     $('#'+defenderId).addClass('characterDefender');
 });
 
+$('#attackBtn').on('click', function(){
+    //console.log("clicked");
+    //var mainVal = $("#mainCharacterRowID > div").attr('value');
+    var main = $("#mainCharacterRowID > div");
+    //main = $("#"+charArray[main.attr('value')].name);
+    //console.log("test "+ main);
+    //console.log("test"+main.text);
+    var defender = $("#defenderCharacterRowID > div");
+    var defenderVal = charArray[defender.attr('value')];
+    var mainVal = charArray[main.attr('value')];
+    main = $('#'+mainVal.name);
+    console.log("test"+JSON.stringify(main[0]));
+    //var defender = charArray[defenderVal];
+    //console.log("main:"+ main);
+    //console.log("defender:"+ defender);
+    var attackPoints = battle(main, mainVal, defender, defenderVal);
+    $('#messageBox').empty();
+    $('#messageBox').append("<h4>You attacked "+defenderVal.name+" for "+attackPoints+" damage.<h4>");
+    $('#messageBox').append("<h4>"+defenderVal.name+" attacked you back for "+defenderVal.cAP+" damage.<h4>");
+});
+
+function battle(main, mainVal, defender, defenderVal){
+    if (mainCharBattles.length === 0 ){
+        //alert("noBattles");
+        mainCharBattles.push(mainVal.aP);
+        let mTempVar = charArray[mainVal.valueAtt];
+        $("#"+mTempVar.name+"> p.hp").text(mainVal.hP - defenderVal.cAP);
+        //$("#mainCharacterRowID > p.hp").text(mainVal.hP - defenderVal.cAP);
+        let dTempVar = charArray[defenderVal.valueAtt];
+        $("#"+dTempVar.name+"> p.hp").text(defenderVal.hP - mainVal.aP);
+        return mainCharBattles[mainCharBattles.length - 1];
+        //attack character 
+    } else {
+        var newAp = mainCharBattles[mainCharBattles.length - 1];
+        console.log(newAp);
+        mainCharBattles.push(newAp);
+        let mTempVar1 = charArray[mainVal.valueAtt];
+        $("#"+mTempVar1.name+"> p.hp").text(mainVal.hP - defenderVal.cAP);
+        let dTempVar1 = charArray[defenderVal.valueAtt];
+        $("#"+dTempVar1.name+"> p.hp").text(defenderVal.hP - newAp);
+        return newAp;
+    }
+}
 
 function Character(name,hP,aP,cAP,valueAtt,imgSrc) {
     this.name = name;
@@ -73,6 +119,6 @@ function Character(name,hP,aP,cAP,valueAtt,imgSrc) {
     this.valueAtt = valueAtt;
     this.imgSrc = imgSrc;
     this.createElement = function(){
-        return '<div class="center character" id='+this.name+' value='+this.valueAtt+'><p>'+this.name+'</p><img src='+this.imgSrc+' alt='+this.name+'><p>'+this.hP+'</p></div>';
+        return '<div class="center character" id='+this.name+' value='+this.valueAtt+'><p>'+this.name+'</p><img src='+this.imgSrc+' alt='+this.name+'><p class="hp">'+this.hP+'</p></div>';
     }
 }
